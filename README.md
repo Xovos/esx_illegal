@@ -2,7 +2,7 @@
 
 I changed ESX_Drugs and added a lot of features like more drugs and licenses for the money was and the money wash itself.
 
-https://media.discordapp.net/attachments/572834058652876804/572834129230692352/unknown.png?width=1194&height=754
+![alt text](https://media.discordapp.net/attachments/572834058652876804/572834129230692352/unknown.png)
 
 ## Download & Installation
 

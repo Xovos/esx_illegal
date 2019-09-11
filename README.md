@@ -1,6 +1,6 @@
 # esx_illegal
 
-I changed ESX_Drugs and added a lot of features like more drugs and licenses for the money was and the money wash itself.
+I changed ESX_Drugs and added a lot of features like more drugs and licenses for the money wash and the money wash itself.
 
 ![alt text](https://media.discordapp.net/attachments/572834058652876804/572834129230692352/unknown.png)
 

@@ -45,7 +45,7 @@ AddEventHandler('esx_illegal:processMeth', function()
 			local xPlayer = ESX.GetPlayerFromId(_source)
 			local xhydrochloric_acid,xsulfuric_acid,xsodium_hydroxide,xmeth = xPlayer.getInventoryItem('hydrochloric_acid'),xPlayer.getInventoryItem('sulfuric_acid'),xPlayer.getInventoryItem('sodium_hydroxide'), xPlayer.getInventoryItem('meth')
 
-			if xmeth.limit ~= -1 and (xmeth.count + 1) >= xmeth.limit then
+			if xmeth.limit ~= -1 and (xmeth.count + 1) > xmeth.limit then
 				TriggerClientEvent('esx:showNotification', _source, _U('meth_processingfull'))
 			elseif xhydrochloric_acid.count < 1 then
 				TriggerClientEvent('esx:showNotification', _source, _U('meth_processingenough'))

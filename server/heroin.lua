@@ -19,11 +19,11 @@ AddEventHandler('esx_illegal:processPoppyResin', function()
 
 		playersProcessingPoppyResin[_source] = ESX.SetTimeout(Config.Delays.HeroinProcessing, function()
 			local xPlayer = ESX.GetPlayerFromId(_source)
-			local xCannabis, xMarijuana = xPlayer.getInventoryItem('poppyresin'), xPlayer.getInventoryItem('heroin')
+			local xPoppyResin, xHeroin = xPlayer.getInventoryItem('poppyresin'), xPlayer.getInventoryItem('heroin')
 
-			if xMarijuana.limit ~= -1 and (xMarijuana.count + 1) > xMarijuana.limit then
+			if xHeroin.limit ~= -1 and (xHeroin.count + 1) > xHeroin.limit then
 				TriggerClientEvent('esx:showNotification', _source, _U('heroin_processingfull'))
-			elseif xCannabis.count < 1 then
+			elseif xPoppyResin.count < 1 then
 				TriggerClientEvent('esx:showNotification', _source, _U('heroin_processingenough'))
 			else
 				xPlayer.removeInventoryItem('poppyresin', 1)

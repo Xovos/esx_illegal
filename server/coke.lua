@@ -21,7 +21,7 @@ AddEventHandler('esx_illegal:processCocaLeaf', function()
 			local xPlayer = ESX.GetPlayerFromId(_source)
 			local xCocaLeaf, xCoke = xPlayer.getInventoryItem('coca_leaf'), xPlayer.getInventoryItem('coke')
 
-			if xCoke.limit ~= -1 and (xCoke.count + 1) >= xCoke.limit then
+			if xCoke.limit ~= -1 and (xCoke.count + 1) > xCoke.limit then
 				TriggerClientEvent('esx:showNotification', _source, _U('coke_processingfull'))
 			elseif xCocaLeaf.count < 3 then
 				TriggerClientEvent('esx:showNotification', _source, _U('coke_processingenough'))

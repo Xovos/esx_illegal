@@ -21,7 +21,7 @@ AddEventHandler('esx_illegal:processPoppyResin', function()
 			local xPlayer = ESX.GetPlayerFromId(_source)
 			local xCannabis, xMarijuana = xPlayer.getInventoryItem('poppyresin'), xPlayer.getInventoryItem('heroin')
 
-			if xMarijuana.limit ~= -1 and (xMarijuana.count + 1) >= xMarijuana.limit then
+			if xMarijuana.limit ~= -1 and (xMarijuana.count + 1) > xMarijuana.limit then
 				TriggerClientEvent('esx:showNotification', _source, _U('heroin_processingfull'))
 			elseif xCannabis.count < 1 then
 				TriggerClientEvent('esx:showNotification', _source, _U('heroin_processingenough'))

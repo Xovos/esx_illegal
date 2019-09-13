@@ -26,8 +26,8 @@ Config.ChemicalsConvertionItems = {
 	lsa = 0,
 }
 
-Config.ChemicalsLicenseEnabled = true --Wil Enable or Disable the need for a Chemicals License.
-Config.MoneyWashLicenseEnabled = true --Wil Enable or Disable the need for a MoneyWash License.
+Config.ChemicalsLicenseEnabled = true --Will Enable or Disable the need for a Chemicals License.
+Config.MoneyWashLicenseEnabled = true --Will Enable or Disable the need for a MoneyWash License.
 
 Config.LicenseEnable = false -- enable processing licenses? The player will be required to buy a license in order to process drugs. Requires esx_license
 

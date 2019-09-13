@@ -12,7 +12,12 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('moneywash_prompt'))
 
 				if IsControlJustReleased(0, Keys['E']) then
-					CheckMoneyWashLicense()
+					if Config.MoneyWashLicenseEnabled then
+						CheckMoneyWashLicense()
+					else
+						wasOpen = true
+						OpenMoneyWash()
+					end
 				end
 			else
 				Citizen.Wait(500)

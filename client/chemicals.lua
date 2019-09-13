@@ -28,7 +28,12 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('chemicals_prompt'))
 
 				if IsControlJustReleased(0, Keys['E']) then
-					chemicalsmenucheck()
+					if Config.ChemicalsLicenseEnabled then
+						chemicalsmenucheck()
+					else
+						wasOpen = true
+						OpenChemicalsMenu()
+					end
 				end
 			else
 				Citizen.Wait(5500)

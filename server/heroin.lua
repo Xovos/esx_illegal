@@ -3,12 +3,11 @@ local playersProcessingPoppyResin = {}
 RegisterServerEvent('esx_illegal:pickedUpPoppy')
 AddEventHandler('esx_illegal:pickedUpPoppy', function()
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local xItem = xPlayer.getInventoryItem('poppyresin')
 
-	if xItem.limit ~= -1 and (xItem.count + 1) > xItem.limit then
-		TriggerClientEvent('esx:showNotification', _source, _U('poppy_inventoryfull'))
+	if xPlayer.canCarryItem('poppyresin', 1) then
+		xPlayer.addInventoryItem('poppyresin', 1)
 	else
-		xPlayer.addInventoryItem(xItem.name, 1)
+		xPlayer.showNotification(_U('poppy_inventoryfull'))
 	end
 end)
 

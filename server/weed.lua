@@ -3,12 +3,11 @@ local playersProcessingCannabis = {}
 RegisterServerEvent('esx_illegal:pickedUpCannabis')
 AddEventHandler('esx_illegal:pickedUpCannabis', function()
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local xItem = xPlayer.getInventoryItem('cannabis')
 
-	if xItem.limit ~= -1 and (xItem.count + 1) > xItem.limit then
-		TriggerClientEvent('esx:showNotification', _source, _U('weed_inventoryfull'))
+	if xPlayer.canCarryItem('cannabis', 1) then
+		xPlayer.addInventoryItem('cannabis', 1)
 	else
-		xPlayer.addInventoryItem(xItem.name, 1)
+		xPlayer.showNotification(_U('weed_inventoryfull'))
 	end
 end)
 

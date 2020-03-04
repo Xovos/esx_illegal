@@ -42,21 +42,19 @@ AddEventHandler('esx_illegal:processMeth', function()
 			local xPlayer = ESX.GetPlayerFromId(_source)
 			local xhydrochloric_acid,xsulfuric_acid,xsodium_hydroxide,xmeth = xPlayer.getInventoryItem('hydrochloric_acid'),xPlayer.getInventoryItem('sulfuric_acid'),xPlayer.getInventoryItem('sodium_hydroxide'), xPlayer.getInventoryItem('meth')
 
-			if xmeth.limit ~= -1 and (xmeth.count + 1) > xmeth.limit then
-				TriggerClientEvent('esx:showNotification', _source, _U('meth_processingfull'))
-			elseif xhydrochloric_acid.count < 1 then
-				TriggerClientEvent('esx:showNotification', _source, _U('meth_processingenough'))
-			elseif xsulfuric_acid.count < 1 then
-				TriggerClientEvent('esx:showNotification', _source, _U('meth_processingenough'))
-			elseif xsodium_hydroxide.count < 1 then
-				TriggerClientEvent('esx:showNotification', _source, _U('meth_processingenough'))
-			else
-				xPlayer.removeInventoryItem('hydrochloric_acid', 1)
-				xPlayer.removeInventoryItem('sulfuric_acid', 1)
-				xPlayer.removeInventoryItem('sodium_hydroxide', 1)
-				xPlayer.addInventoryItem('meth', 1)
+			if xhydrochloric_acid.count > 0 and xsulfuric_acid.count > 0 and xsodium_hydroxide.count > 0 then
+				if xPlayer.canSwapItem('hydrochloric_acid', 1, 'meth', 1) and xPlayer.canSwapItem('sulfuric_acid', 1, 'meth', 1) xPlayer.canSwapItem('sodium_hydroxide', 1, 'meth', 1) then
+					xPlayer.removeInventoryItem('hydrochloric_acid', 1)
+					xPlayer.removeInventoryItem('sulfuric_acid', 1)
+					xPlayer.removeInventoryItem('sodium_hydroxide', 1)
+					xPlayer.addInventoryItem('meth', 1)
 
-				TriggerClientEvent('esx:showNotification', _source, _U('meth_processed'))
+					xPlayer.showNotification(_U('meth_processed'))
+				else
+					xPlayer.showNotification(_U('meth_processingfull'))
+				end
+			else
+				xPlayer.showNotification(_U('meth_processingenough'))
 			end
 
 			playersProcessingMeth[_source] = nil

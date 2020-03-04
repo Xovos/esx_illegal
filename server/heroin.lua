@@ -20,15 +20,17 @@ AddEventHandler('esx_illegal:processPoppyResin', function()
 			local xPlayer = ESX.GetPlayerFromId(_source)
 			local xPoppyResin, xHeroin = xPlayer.getInventoryItem('poppyresin'), xPlayer.getInventoryItem('heroin')
 
-			if xHeroin.limit ~= -1 and (xHeroin.count + 1) > xHeroin.limit then
-				TriggerClientEvent('esx:showNotification', _source, _U('heroin_processingfull'))
-			elseif xPoppyResin.count < 1 then
-				TriggerClientEvent('esx:showNotification', _source, _U('heroin_processingenough'))
-			else
-				xPlayer.removeInventoryItem('poppyresin', 1)
-				xPlayer.addInventoryItem('heroin', 1)
+			if xPoppyResin.count > 0 then
+				if xPlayer.canSwapItem('poppyresin', 1, 'heroin', 1) then
+					xPlayer.removeInventoryItem('poppyresin', 1)
+					xPlayer.addInventoryItem('heroin', 1)
 
-				TriggerClientEvent('esx:showNotification', _source, _U('heroin_processed'))
+					xPlayer.showNotification(_U('heroin_processed'))
+				else
+					xPlayer.showNotification(_U('heroin_processingfull'))
+				end
+			else
+				xPlayer.showNotification(_U('heroin_processingenough'))
 			end
 
 			playersProcessingPoppyResin[_source] = nil

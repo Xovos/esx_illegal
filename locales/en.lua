@@ -95,9 +95,22 @@ Locales ['en'] = {
   ['moneywash_prompt'] = 'press ~INPUT_CONTEXT~ to open the ~r~MoneyWash~s~.',
   
   -- blips
-  ['blip_weedfield'] = 'weed Field',
-  ['blip_weedprocessing'] = 'weed Processing',
-  ['blip_methfield'] = 'meth Field',
-  ['blip_methprocessing'] = 'meth Processing',
-  ['blip_drugdealer'] = 'drug Dealer',
+  ['blip_weedfield'] = 'Weed Field',
+  ['blip_weedprocessing'] = 'Weed Processing',
+  ['blip_HydrochloricAcidFarm'] = 'Hydrochloric Acid Farm',
+  ['blip_SulfuricAcidFarm'] = 'Sulfuric Acid Farm',
+  ['blip_SodiumHydroxideFarm'] = 'Sodium Hydroxide Farm',
+  ['blip_ChemicalsFarm'] = 'Chemicals Farm',
+  ['blip_ChemicalsProcessing'] = 'Chemicals Processing',
+  ['blip_CokeFarm'] = 'Coca Field',
+  ['blip_Cokeprocessing'] = 'Coke Processing',
+  ['blip_lsdprocessing'] = 'lsd Processing',
+  ['blip_thionylchlorideprocessing'] = 'Thionyl Chloride Processing',
+  ['blip_heroinfield'] = 'Ploppy Field',
+  ['blip_heroinprocessing'] = 'Heroin Processing',
+  ['blip_licenseshop'] = 'License Shop',
+  ['blip_moneywash'] = 'MoneyWash',
+  ['blip_methprocessing'] = 'Meth Processing',
+  ['blip_drugdealer'] = 'Drug Dealer',
+
 }

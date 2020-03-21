@@ -43,7 +43,7 @@ AddEventHandler('esx_illegal:processMeth', function()
 			local xhydrochloric_acid,xsulfuric_acid,xsodium_hydroxide,xmeth = xPlayer.getInventoryItem('hydrochloric_acid'),xPlayer.getInventoryItem('sulfuric_acid'),xPlayer.getInventoryItem('sodium_hydroxide'), xPlayer.getInventoryItem('meth')
 
 			if xhydrochloric_acid.count > 0 and xsulfuric_acid.count > 0 and xsodium_hydroxide.count > 0 then
-				if xPlayer.canSwapItem('hydrochloric_acid', 1, 'meth', 1) and xPlayer.canSwapItem('sulfuric_acid', 1, 'meth', 1) xPlayer.canSwapItem('sodium_hydroxide', 1, 'meth', 1) then
+				if xPlayer.canSwapItem('hydrochloric_acid', 1, 'meth', 1) and xPlayer.canSwapItem('sulfuric_acid', 1, 'meth', 1) and xPlayer.canSwapItem('sodium_hydroxide', 1, 'meth', 1) then
 					xPlayer.removeInventoryItem('hydrochloric_acid', 1)
 					xPlayer.removeInventoryItem('sulfuric_acid', 1)
 					xPlayer.removeInventoryItem('sodium_hydroxide', 1)

@@ -142,30 +142,34 @@ end
 
 function CreateBlipCircle(coords, text, radius, color, sprite)
 	
-	--[[local blip = AddBlipForRadius(coords, radius)
+	if Config.EnableMapsBlimps then
+		local blip = AddBlipForRadius(coords, radius)
 
-	SetBlipHighDetail(blip, true)
-	SetBlipColour(blip, 1)
-	SetBlipAlpha (blip, 128)
+		SetBlipHighDetail(blip, true)
+		SetBlipColour(blip, 1)
+		SetBlipAlpha (blip, 128)
 
-	-- create a blip in the middle
-	blip = AddBlipForCoord(coords)
+		-- create a blip in the middle
+		blip = AddBlipForCoord(coords)
 
-	SetBlipHighDetail(blip, true)
-	SetBlipSprite (blip, sprite)
-	SetBlipScale  (blip, 1.0)
-	SetBlipColour (blip, color)
-	SetBlipAsShortRange(blip, true)
+		SetBlipHighDetail(blip, true)
+		SetBlipSprite (blip, sprite)
+		SetBlipScale  (blip, 1.0)
+		SetBlipColour (blip, color)
+		SetBlipAsShortRange(blip, true)
 
-	BeginTextCommandSetBlipName("STRING")
-	AddTextComponentString(text)
-	EndTextCommandSetBlipName(blip)
+		BeginTextCommandSetBlipName("STRING")
+		AddTextComponentString(text)
+		EndTextCommandSetBlipName(blip)
+	end
 end
 
 Citizen.CreateThread(function()
-	for k,zone in pairs(Config.CircleZones) do
-
-		CreateBlipCircle(zone.coords, zone.name, zone.radius, zone.color, zone.sprite)
+	if Config.EnableMapsBlimps then
+		for k,zone in pairs(Config.CircleZones) do
+			if zone.enabled then
+				CreateBlipCircle(zone.coords, zone.name, zone.radius, zone.color, zone.sprite)
+			end
+		end
 	end
-	--]]
 end

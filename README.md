@@ -1,12 +1,8 @@
 # esx_illegal
 
-I changed ESX_Drugs and added a lot of features like more drugs and licenses for the money wash and the money wash itself.
-
-![alt text](https://media.discordapp.net/attachments/572834058652876804/572834129230692352/unknown.png)
+Adds the well-known drugs for the people who want to make quick money. Weed Field require you to run around and harvest weed plants, process and then sell at the beach of San Andreas! 
 
 ## Download & Installation
-
-You can use [this](https://github.com/Xovos/XOVOS_Teleport) script to get into the buildings.
 
 ### Using [fvm](https://github.com/qlaffont/fvm-installer)
 ```
@@ -18,6 +14,10 @@ fvm install --save --folder=esx Xovos/esx_illegal
 cd resources
 git clone https://github.com/Xovos/esx_illegal [esx]/esx_illegal
 ```
+
+### Manually
+- Download https://github.com/Xovos/esx_illegal/archive/master.zip
+- Put it in the `[esx]` directory
 
 ## Installation
 - Import `esx_illegal.sql` in your database

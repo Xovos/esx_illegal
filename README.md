@@ -1,6 +1,7 @@
 # esx_illegal
 
 I changed ESX_Drugs and added a lot of features like more drugs and licenses for the money wash and the money wash itself.
+If you're running on an older verion of ESX(Pre-Limit) than please use [this](https://github.com/Xovos/esx_illegal/tree/pre-limit-update) branch.
 
 ![alt text](https://media.discordapp.net/attachments/572834058652876804/572834129230692352/unknown.png)
 

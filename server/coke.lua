@@ -20,7 +20,7 @@ AddEventHandler('esx_illegal:processCocaLeaf', function()
 			local xPlayer = ESX.GetPlayerFromId(_source)
 			local xCocaLeaf, xCoke = xPlayer.getInventoryItem('coca_leaf'), xPlayer.getInventoryItem('coke')
 
-			if xCocaLeaf.count > 3 then
+			if xCocaLeaf.count >= 3 then
 				if xPlayer.canSwapItem('coca_leaf', 3, 'coke', 1) then
 					xPlayer.removeInventoryItem('coca_leaf', 3)
 					xPlayer.addInventoryItem('coke', 1)

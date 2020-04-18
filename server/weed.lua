@@ -20,7 +20,7 @@ AddEventHandler('esx_illegal:processCannabis', function()
 			local xPlayer = ESX.GetPlayerFromId(_source)
 			local xCannabis = xPlayer.getInventoryItem('cannabis')
 
-			if xCannabis.count > 3 then
+			if xCannabis.count >= 3 then
 				if xPlayer.canSwapItem('cannabis', 3, 'marijuana', 1) then
 					xPlayer.removeInventoryItem('cannabis', 3)
 					xPlayer.addInventoryItem('marijuana', 1)

@@ -33,8 +33,6 @@ Config.RestrictLicenseShopAcces = false --Will Restrict the acces to the lisence
 Config.AllowedJobs = {
 	Cartel4 = {name = 'cartel', grade = 4},
 	Cartel3 = {name = 'cartel', grade = 3},
-	Tequilala4 = {name = 'tequi-la-la', grade = 4},
-	Tequilala3 = {name = 'tequi-la-la', grade = 3},
 	Police4 = {name = 'police', grade = 4}
 }
 

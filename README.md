@@ -7,8 +7,6 @@ This branch is for people who are running an older version of ESX(Pre Limit) If 
 
 ## Download & Installation
 
-You can use [this](https://github.com/Xovos/XOVOS_Teleport) script to get into the buildings.
-
 ### Using [fvm](https://github.com/qlaffont/fvm-installer)
 ```
 fvm install --save --folder=esx Xovos/esx_illegal

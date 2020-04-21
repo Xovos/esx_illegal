@@ -88,6 +88,8 @@ Locales ['en'] = {
   ['license_bought'] = 'you\'ve bought ~b~1x~s~ ~y~%s~s~ for ~g~$%s~s~',
   ['license_inventoryfull'] = 'you already have this License on you.',
   ['license_notenough'] = 'you cannot afford a ~b~%s~s~!',
+  ['license_wrongjob'] = 'you don\'t have the right job or grade to acces the ~g~License Shop~s~.',
+  
   
   -- moneywash
   ['moneywash_washed'] = 'you\'ve washed ~r~$%s~s~',

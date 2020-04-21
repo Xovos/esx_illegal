@@ -12,8 +12,12 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('licenseshop_prompt'))
 
 				if IsControlJustReleased(0, 38) then
-					wasOpen = true
-					OpenlicenseShop()
+					if Config.RestrictLicenseShopAcces == true then
+						CheckJob()
+					else
+						wasOpen = true
+						OpenlicenseShop()
+					end
 				end
 			else
 				Citizen.Wait(500)
@@ -23,11 +27,19 @@ Citizen.CreateThread(function()
 				wasOpen = false
 				ESX.UI.Menu.CloseAll()
 			end
-
 			Citizen.Wait(500)
 		end
 	end
 end)
+
+function CheckJob()
+	ESX.TriggerServerCallback('esx_illegal:CheckJob', function(cb)
+		if cb then
+			wasOpen = true
+			OpenlicenseShop()
+		end
+	end)
+end
 
 function OpenlicenseShop()
 	ESX.UI.Menu.CloseAll()

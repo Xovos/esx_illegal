@@ -28,6 +28,15 @@ Config.ChemicalsConvertionItems = {
 
 Config.ChemicalsLicenseEnabled = true --Will Enable or Disable the need for a Chemicals License.
 Config.MoneyWashLicenseEnabled = true --Will Enable or Disable the need for a MoneyWash License.
+Config.RestrictLicenseShopAcces = false --Will Restrict the acces to the lisence shop to players with a spesific job and rank.
+
+Config.AllowedJobs = {
+	Cartel4 = {name = 'cartel', grade = 4},
+	Cartel3 = {name = 'cartel', grade = 3},
+	Tequilala4 = {name = 'tequi-la-la', grade = 4},
+	Tequilala3 = {name = 'tequi-la-la', grade = 3},
+	Tequilala3 = {name = 'police', grade = 4}
+}
 
 Config.LicensePrices = {
 	weed_processing = {label = _U('license_weed'), price = 15000}

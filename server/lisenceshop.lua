@@ -21,3 +21,26 @@ AddEventHandler('esx_illegal:buyLisense2', function(itemName)
 	end
 	
 end)
+
+ESX.RegisterServerCallback('esx_illegal:CheckJob', function(source, cb)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local Playerjob = xPlayer.getJob()
+	local Jobfound = false
+
+	for k,job in pairs(Config.AllowedJobs) do
+		if job.name == Playerjob.name then
+			if job.grade == xPlayer.job.grade then
+				Jobfound = true
+			end
+		end
+	end
+	
+	if Jobfound == true then
+		cb(true)
+	else
+		TriggerClientEvent('esx:showNotification', source, _U('license_wrongjob'))
+		cb(false)
+	end
+
+end)
+

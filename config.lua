@@ -35,7 +35,7 @@ Config.AllowedJobs = {
 	Cartel3 = {name = 'cartel', grade = 3},
 	Tequilala4 = {name = 'tequi-la-la', grade = 4},
 	Tequilala3 = {name = 'tequi-la-la', grade = 3},
-	Tequilala3 = {name = 'police', grade = 4}
+	Police4 = {name = 'police', grade = 4}
 }
 
 Config.LicensePrices = {

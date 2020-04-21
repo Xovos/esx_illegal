@@ -31,11 +31,11 @@ AddEventHandler('esx_illegal:ChemicalsConvertionMenu', function(itemName, amount
 	TriggerClientEvent('esx:showNotification', source, _U('Chemicals_made', xItem.label))
 end)
 
-ESX.RegisterServerCallback('esx_illegal:CheckLisense', function(source, cb)
+ESX.RegisterServerCallback('esx_illegal:CheckLisense', function(source, cb, itemName)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local xChemicalsLisence = xPlayer.getInventoryItem('chemicalslisence')
+	local xLisence = xPlayer.getInventoryItem(itemName)
 
-	if xChemicalsLisence.count == 1 then
+	if xLisence.count == 1 then
 		cb(true)
 	else
 		cb(false)

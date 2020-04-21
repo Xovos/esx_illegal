@@ -11,7 +11,7 @@ Citizen.CreateThread(function()
 			if not menuOpen then
 				ESX.ShowHelpNotification(_U('moneywash_prompt'))
 
-				if IsControlJustReleased(0, Keys['E']) then
+				if IsControlJustReleased(0, 38) then
 					if Config.MoneyWashLicenseEnabled then
 						CheckMoneyWashLicense()
 					else
@@ -22,27 +22,27 @@ Citizen.CreateThread(function()
 			else
 				Citizen.Wait(500)
 			end
-		--[[else
+		else
 			if wasOpen then
 				wasOpen = false
 				ESX.UI.Menu.CloseAll()
 			end
 
-			Citizen.Wait(500)--]]
+			Citizen.Wait(500)
 		end
 	end
 end)
 
 function CheckMoneyWashLicense()
 
-	ESX.TriggerServerCallback('esx_illegal:CheckMoneyWashLicense', function(cb)
+	ESX.TriggerServerCallback('esx_illegal:CheckLisense', function(cb)
 		if cb then
 			wasOpen = true
 			OpenMoneyWash()
 		else
 			ESX.ShowNotification(_U('need_license'))
 		end
-	end)
+	end, 'moneywash')
 end
 
 function OpenMoneyWash()

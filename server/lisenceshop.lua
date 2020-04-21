@@ -6,7 +6,7 @@ AddEventHandler('esx_illegal:buyLisense2', function(itemName)
 	local money = xPlayer.getMoney()
 
 	if money < price then
-		TriggerClientEvent('esx:showNotification', source, _U('license_notenough'))
+		TriggerClientEvent('esx:showNotification', source, _U('license_notenough', xItem.label))
 		return
 	end
 	

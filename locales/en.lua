@@ -87,6 +87,7 @@ Locales ['en'] = {
   ['licenseshop_prompt'] = 'press ~INPUT_CONTEXT~ to open the ~g~License Shop~s~.',
   ['license_bought'] = 'you\'ve bought ~b~1x~s~ ~y~%s~s~ for ~g~$%s~s~',
   ['license_inventoryfull'] = 'you already have this License on you.',
+  ['license_notenough'] = 'you cannot afford a ~b~%s~s~!',
   
   -- moneywash
   ['moneywash_washed'] = 'you\'ve washed ~r~$%s~s~',

@@ -6,7 +6,7 @@ AddEventHandler('esx_illegal:buyLisense2', function(itemName)
 	local money = xPlayer.getMoney()
 
 	if money < price then
-		TriggerClientEvent('esx:showNotification', source, _U('license_notenough'))
+		TriggerClientEvent('esx:showNotification', source, _U('license_notenough', xItem.label))
 		return
 	end
 	
@@ -24,11 +24,22 @@ end)
 
 ESX.RegisterServerCallback('esx_illegal:CheckJob', function(source, cb)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local job = xPlayer.getJob()
+	local Playerjob = xPlayer.getJob()
+	local Jobfound = false
 
-	if (job.name == 'cartel' and (xPlayer.job.grade == 4 or xPlayer.job.grade == 3)) or (job.name == 'tequi-la-la' and (xPlayer.job.grade == 4 or xPlayer.job.grade == 3)) or (job.name == 'unicorn' and (xPlayer.job.grade == 4 or xPlayer.job.grade == 3)) then
+	for k,job in pairs(Config.AllowedJobs) do
+		if job.name == Playerjob.name then
+			if job.grade == xPlayer.job.grade then
+				Jobfound = true
+			end
+		end
+	end
+	
+	if Jobfound == true then
 		cb(true)
 	else
+		TriggerClientEvent('esx:showNotification', source, _U('license_wrongjob'))
 		cb(false)
 	end
+
 end)

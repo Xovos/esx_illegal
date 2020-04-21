@@ -9,29 +9,34 @@ Citizen.CreateThread(function()
 
 		if GetDistanceBetweenCoords(coords, Config.CircleZones.LicenseShop.coords, true) < 5 then
 			if not menuOpen then
-				checkjob()
+				ESX.ShowHelpNotification(_U('licenseshop_prompt'))
+
+				if IsControlJustReleased(0, 38) then
+					if Config.RestrictLicenseShopAcces == true then
+						CheckJob()
+					else
+						wasOpen = true
+						OpenlicenseShop()
+					end
+				end
+			else
+				Citizen.Wait(500)
 			end
-		--[[else
+		else
 			if wasOpen then
 				wasOpen = false
 				ESX.UI.Menu.CloseAll()
 			end
-
-			Citizen.Wait(500)--]]
+			Citizen.Wait(500)
 		end
 	end
 end)
 
-function checkjob()
+function CheckJob()
 	ESX.TriggerServerCallback('esx_illegal:CheckJob', function(cb)
-	if cb then
-		ESX.ShowHelpNotification(_U('licenseshop_prompt'))
-			if IsControlJustReleased(0, Keys['E']) then
-				wasOpen = true
-				OpenlicenseShop()
-			else
-				Citizen.Wait(500)
-			end
+		if cb then
+			wasOpen = true
+			OpenlicenseShop()
 		end
 	end)
 end

@@ -53,11 +53,16 @@ end)
 
 ESX.RegisterServerCallback('esx_illegal:canPickUp', function(source, cb, item)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local xItem = xPlayer.getInventoryItem(item)
+	cb(xPlayer.canCarryItem(item, 1))
+end)
 
-	if xItem.limit ~= -1 and xItem.count >= xItem.limit then
-		cb(false)
-	else
+ESX.RegisterServerCallback('esx_illegal:CheckLisense', function(source, cb, itemName)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local xLisence = xPlayer.getInventoryItem(itemName)
+
+	if xLisence.count == 1 then
 		cb(true)
+	else
+		cb(false)
 	end
 end)

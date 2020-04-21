@@ -49,7 +49,6 @@ Citizen.CreateThread(function()
 				wasOpen = false
 				ESX.UI.Menu.CloseAll()
 			end
-
 			Citizen.Wait(500)--]]
 		end
 	end
@@ -168,7 +167,7 @@ Citizen.CreateThread(function()
 	if Config.EnableMapsBlimps then
 		for k,zone in pairs(Config.CircleZones) do
 			if zone.enabled then
-				CreateBlipCircle(zone.coords, zone.name, zone.radius, zone.color, zone.sprite)
+				CreateBlipCircle(zone.blimpcoords, zone.name, zone.radius, zone.color, zone.sprite)
 			end
 		end
 	end

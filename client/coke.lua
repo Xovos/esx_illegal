@@ -29,19 +29,7 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isProcessing then
-
-				if Config.LicenseEnable then
-					ESX.TriggerServerCallback('esx_license:checkLicense', function(hasProcessingLicense)
-						if hasProcessingLicense then
-							ProcessWeed()
-						else
-							OpenBuyLicenseMenu('coke_processing')
-						end
-					end, GetPlayerServerId(PlayerId()), 'coke_processing')
-				else
-					ProcessCoke()
-				end
-
+				ProcessCoke()
 			end
 		else
 			Citizen.Wait(500)

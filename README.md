@@ -7,8 +7,6 @@ If you're running on an older verion of ESX(Pre-Limit) than please use [this](ht
 
 ## Download & Installation
 
-You can use [this](https://github.com/Xovos/XOVOS_Teleport) script to get into the buildings.
-
 ### Using [fvm](https://github.com/qlaffont/fvm-installer)
 ```
 fvm install --save --folder=esx Xovos/esx_illegal

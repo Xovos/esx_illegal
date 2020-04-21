@@ -23,52 +23,50 @@ end
 Citizen.CreateThread(function()
 	while true do
         Citizen.Wait(0)
-        local PPed = GetPlayerPed(-1)
         local coords = GetEntityCoords(PlayerPedId())
 
-            for k,interior in pairs(Config.Interiors) do
-                if not IsEntityDead(PlayerPedId()) then
-                    if GetDistanceBetweenCoords(coords, interior.EnteranceCoords, true) < distance then
-						DrawText3Ds(interior.EnteranceCoords, _U('teleport_enter'))
-						if IsControlJustReleased(0, 38) then
-							if timer == 0 then
-								DoScreenFadeOut(1000)
-								while IsScreenFadingOut() do Citizen.Wait(0) end
-								NetworkFadeOutEntity(GetPlayerPed(-1), true, false)
-								Wait(1000)
-								SetEntityCoords(GetPlayerPed(-1), interior.ExitCoords)
-								SetEntityHeading(GetPlayerPed(-1), t)
-								NetworkFadeInEntity(GetPlayerPed(-1), 0)
-								Wait(1000)
-								current_int = i
-								timer = 5
-								SimulatePlayerInputGait(PlayerId(), 1.0, 100, 1.0, 1, 0)
-								DoScreenFadeIn(1000)
-								while IsScreenFadingIn() do Citizen.Wait(0)	end
-							end
-						end
-					end
-                    if GetDistanceBetweenCoords(coords, interior.ExitCoords, true) < distance then
-                        if GetDistanceBetweenCoords(coords, interior.ExitCoords, true) < 1.599 then
-                            if timer == 0 then
-                                DoScreenFadeOut(1000)
-                                while IsScreenFadingOut() do Citizen.Wait(0) end
-                                NetworkFadeOutEntity(GetPlayerPed(-1), true, false)
-                                Wait(1000)
-                                SetEntityCoords(GetPlayerPed(-1), interior.EnteranceCoords)
-                                SetEntityHeading(GetPlayerPed(-1), t)
-                                NetworkFadeInEntity(GetPlayerPed(-1), 0)
-                                Wait(1000)
-                                current_int = i
-                                timer = 5
-                                SimulatePlayerInputGait(PlayerId(), 1.0, 100, 1.0, 1, 0)
-                                DoScreenFadeIn(1000)
-                                while IsScreenFadingIn() do Citizen.Wait(0)	end
-                            end
+        for k,interior in pairs(Config.Interiors) do
+            if not IsEntityDead(PlayerPedId()) then
+                if GetDistanceBetweenCoords(coords, interior.EnteranceCoords, true) < distance then
+                    DrawText3Ds(interior.EnteranceCoords, _U('teleport_enter'))
+                    if IsControlJustReleased(0, 38) then
+                        if timer == 0 then
+                            DoScreenFadeOut(1000)
+                            while IsScreenFadingOut() do Citizen.Wait(0) end
+                            NetworkFadeOutEntity(GetPlayerPed(-1), true, false)
+                            Wait(1000)
+                            SetEntityCoords(GetPlayerPed(-1), interior.ExitCoords)
+                            SetEntityHeading(GetPlayerPed(-1), t)
+                            NetworkFadeInEntity(GetPlayerPed(-1), 0)
+                            Wait(1000)
+                            current_int = i
+                            timer = 5
+                            SimulatePlayerInputGait(PlayerId(), 1.0, 100, 1.0, 1, 0)
+                            DoScreenFadeIn(1000)
+                            while IsScreenFadingIn() do Citizen.Wait(0)	end
                         end
                     end
                 end
+                
+                if GetDistanceBetweenCoords(coords, interior.ExitCoords, true) < distance then
+                    if timer == 0 then
+                        DoScreenFadeOut(1000)
+                        while IsScreenFadingOut() do Citizen.Wait(0) end
+                        NetworkFadeOutEntity(GetPlayerPed(-1), true, false)
+                        Wait(1000)
+                        SetEntityCoords(GetPlayerPed(-1), interior.EnteranceCoords)
+                        SetEntityHeading(GetPlayerPed(-1), t)
+                        NetworkFadeInEntity(GetPlayerPed(-1), 0)
+                        Wait(1000)
+                        current_int = i
+                        timer = 5
+                        SimulatePlayerInputGait(PlayerId(), 1.0, 100, 1.0, 1, 0)
+                        DoScreenFadeIn(1000)
+                        while IsScreenFadingIn() do Citizen.Wait(0)	end
+                    end
+                end
             end
+        end
 	end
 end)
 

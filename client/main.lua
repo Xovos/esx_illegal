@@ -33,23 +33,24 @@ Citizen.CreateThread(function()
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
 
-		if GetDistanceBetweenCoords(coords, Config.CircleZones.DrugDealer.coords, true) < 1.50 then
+		if GetDistanceBetweenCoords(coords, Config.CircleZones.DrugDealer.coords, true) < 1.5 then
 			if not menuOpen then
 				ESX.ShowHelpNotification(_U('dealer_prompt'))
 
-				if IsControlJustReleased(0, Keys['E']) then
+				if IsControlJustReleased(0, 38) then
 					wasOpen = true
 					OpenDrugShop()
 				end
 			else
 				Citizen.Wait(500)
 			end
-		--[[else
+		else
 			if wasOpen then
 				wasOpen = false
 				ESX.UI.Menu.CloseAll()
 			end
-			Citizen.Wait(500)--]]
+
+			Citizen.Wait(500)
 		end
 	end
 end)
@@ -96,48 +97,6 @@ AddEventHandler('onResourceStop', function(resource)
 		end
 	end
 end)
-
-function OpenBuyLicenseMenu(licenseName)
-	menuOpen = true
-	local license = Config.LicensePrices[licenseName]
-
-	local elements = {
-		{
-			label = _U('license_no'),
-			value = 'no'
-		},
-
-		{
-			label = ('%s - <span style="color:green;">%s</span>'):format(license.label, _U('dealer_item', ESX.Math.GroupDigits(license.price))),
-			value = licenseName,
-			price = license.price,
-			licenseName = license.label
-		}
-	}
-
-	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'license_shop', {
-		title    = _U('license_title'),
-		align    = 'top-left',
-		elements = elements
-	}, function(data, menu)
-
-		if data.current.value ~= 'no' then
-			ESX.TriggerServerCallback('esx_illegal:buyLicense', function(boughtLicense)
-				if boughtLicense then
-					ESX.ShowNotification(_U('license_bought', data.current.licenseName, ESX.Math.GroupDigits(data.current.price)))
-				else
-					ESX.ShowNotification(_U('license_bought_fail', data.current.licenseName))
-				end
-			end, data.current.value)
-		else
-			menu.close()
-		end
-
-	end, function(data, menu)
-		menu.close()
-		menuOpen = false
-	end)
-end
 
 function CreateBlipCircle(coords, text, radius, color, sprite)
 	

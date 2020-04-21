@@ -12,19 +12,7 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isProcessing then
-
-				if Config.LicenseEnable then
-					ESX.TriggerServerCallback('esx_license:checkLicense', function(hasProcessingLicense)
-						if hasProcessingLicense then
-							ProcessMeth()
-						else
-							OpenBuyLicenseMenu('meth_processing')
-						end
-					end, GetPlayerServerId(PlayerId()), 'meth_processing')
-				else
-					ProcessMeth()
-				end
-
+				ProcessMeth()
 			end
 		else
 			Citizen.Wait(500)

@@ -116,4 +116,7 @@ Locales ['en'] = {
   ['blip_methprocessing'] = 'Meth Processing',
   ['blip_drugdealer'] = 'Drug Dealer',
 
+
+  -- teleport
+  ['teleport_enter'] = 'Press ~g~E ~w~to Enter.',
 }

@@ -12,11 +12,26 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('licenseshop_prompt'))
 
 				if IsControlJustReleased(0, 38) then
-					if Config.RestrictLicenseShopAcces == true then
-						CheckJob()
+					if Config.RequireCopsOnline then
+						ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+							if cb then
+								if Config.RestrictLicenseShopAcces == true then
+									CheckJob()
+								else
+									wasOpen = true
+									OpenlicenseShop()
+								end
+							else
+								ESX.ShowNotification(_U('cops_notenough'))
+							end
+						end, Config.Cops.LicenseShop)
 					else
-						wasOpen = true
-						OpenlicenseShop()
+						if Config.RestrictLicenseShopAcces == true then
+							CheckJob()
+						else
+							wasOpen = true
+							OpenlicenseShop()
+						end
 					end
 				end
 			else

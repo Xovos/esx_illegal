@@ -38,8 +38,19 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('dealer_prompt'))
 
 				if IsControlJustReleased(0, 38) then
-					wasOpen = true
-					OpenDrugShop()
+					if Config.RequireCopsOnline then
+						ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+							if cb then
+								wasOpen = true
+								OpenDrugShop()
+							else
+								ESX.ShowNotification(_U('cops_notenough'))
+							end
+						end, Config.Cops.DrugDealer)
+					else
+						wasOpen = true
+						OpenDrugShop()
+					end
 				end
 			else
 				Citizen.Wait(500)

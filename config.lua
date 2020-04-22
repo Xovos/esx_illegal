@@ -9,6 +9,7 @@ Config.GiveBlack = true -- give black money? if disabled it'll give regular cash
 Config.ChemicalsLicenseEnabled = true --Will Enable or Disable the need for a Chemicals License.
 Config.MoneyWashLicenseEnabled = true --Will Enable or Disable the need for a MoneyWash License.
 Config.RestrictLicenseShopAcces = false --Will Restrict the access to the license shop to players with a specific job and grade.
+Config.RequireCopsOnline = false --Will require that cops are online to pickup or process.
 
 --The time it takes to process one item
 Config.Delays = {
@@ -48,7 +49,17 @@ Config.ChemicalsConvertionItems = {
 Config.AllowedJobs = {
 	Cartel4 = {name = 'cartel', grade = 4},
 	Cartel3 = {name = 'cartel', grade = 3},
-	Police4 = {name = 'police', grade = 4}
+	Police4 = {name = 'police', grade = 4},
+}
+
+--The amount of cops that need to be online to harvest/process these drugs.
+--Only needed when RequireCopsOnline is set to true
+Config.Cops = {
+	Heroin = 1,
+	Weed = 5,
+	Coke = 1,
+	Meth = 3,
+	LSD = 0,
 }
 
 --Interior Teleport Locations

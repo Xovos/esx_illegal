@@ -119,4 +119,7 @@ Locales ['en'] = {
   -- teleport
   ['teleport_enter'] = 'Press ~g~E ~w~to Enter.',
 
+  -- Cops
+  ['cops_notenough'] = 'You cannot participate illegal activities unless there\'s enough cops online.',
+
 }

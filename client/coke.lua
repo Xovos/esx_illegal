@@ -29,7 +29,13 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isProcessing then
-				ProcessCoke()
+				ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+					if cb then
+						ProcessCoke()
+					else
+						ESX.ShowNotification(_U('cops_notenough'))
+					end
+				end, Config.Cops.Coke)
 			end
 		else
 			Citizen.Wait(500)
@@ -79,30 +85,36 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
-				isPickingUp = true
 
-				ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
+				ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+					if cb then
+						ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
+							isPickingUp = true
 
-					if canPickUp then
-						TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-
-						Citizen.Wait(2000)
-						ClearPedTasks(playerPed)
-						Citizen.Wait(1500)
+							if canPickUp then
+								TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 		
-						ESX.Game.DeleteObject(nearbyObject)
+								Citizen.Wait(2000)
+								ClearPedTasks(playerPed)
+								Citizen.Wait(1500)
+				
+								ESX.Game.DeleteObject(nearbyObject)
+				
+								table.remove(CocaPlants, nearbyID)
+								spawnedCocaLeaf = spawnedCocaLeaf - 1
+				
+								TriggerServerEvent('esx_illegal:pickedUpCocaLeaf')
+							else
+								ESX.ShowNotification(_U('coke_inventoryfull'))
+							end
 		
-						table.remove(CocaPlants, nearbyID)
-						spawnedCocaLeaf = spawnedCocaLeaf - 1
+							isPickingUp = false
 		
-						TriggerServerEvent('esx_illegal:pickedUpCocaLeaf')
+						end, 'coca_leaf')
 					else
-						ESX.ShowNotification(_U('coke_inventoryfull'))
+						ESX.ShowNotification(_U('cops_notenough'))
 					end
-
-					isPickingUp = false
-
-				end, 'coca_leaf')
+				end, Config.Cops.Coke)
 			end
 
 		else

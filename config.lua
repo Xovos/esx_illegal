@@ -64,7 +64,7 @@ Config.Cops = {
 	MoneyWash = 2,
 	ChemicalsMenu = 3,
 	DrugDealer = 0,
-	LicenseShop = 0,
+	LicenseShop = 1,
 }
 
 --Interior Teleport Locations

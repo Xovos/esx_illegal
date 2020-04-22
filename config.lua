@@ -60,6 +60,8 @@ Config.Cops = {
 	Coke = 1,
 	Meth = 1,
 	LSD = 1,
+	MoneyWash = {Amount = 1, Enabled = true},
+	Chemicals = {Amount = 1, Enabled = true},
 }
 
 --Interior Teleport Locations

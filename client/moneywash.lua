@@ -12,12 +12,36 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('moneywash_prompt'))
 
 				if IsControlJustReleased(0, 38) then
-					if Config.MoneyWashLicenseEnabled then
-						CheckMoneyWashLicense()
+					if Config.RequireCopsOnline then
+						if Config.Cops.MoneyWash.Enabled then
+							ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+								if cb then
+									if Config.MoneyWashLicenseEnabled then
+										CheckMoneyWashLicense()
+									else
+										wasOpen = true
+										OpenMoneyWash()
+									end
+								else
+									ESX.ShowNotification(_U('cops_notenough'))
+								end
+							end, Config.Cops.MoneyWash.Amount)
+						else
+							if Config.MoneyWashLicenseEnabled then
+								CheckMoneyWashLicense()
+							else
+								wasOpen = true
+								OpenMoneyWash()
+							end
+						end
 					else
-						wasOpen = true
-						OpenMoneyWash()
-					end
+						if Config.MoneyWashLicenseEnabled then
+							CheckMoneyWashLicense()
+						else
+							wasOpen = true
+							OpenMoneyWash()
+						end
+					end		
 				end
 			else
 				Citizen.Wait(500)

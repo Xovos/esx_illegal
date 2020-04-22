@@ -28,12 +28,36 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('chemicals_prompt'))
 
 				if IsControlJustReleased(0, 38) then
-					if Config.ChemicalsLicenseEnabled then
-						chemicalsmenucheck()
+					if Config.RequireCopsOnline then
+						if Config.Cops.Chemicals.Enabled then
+							ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+								if cb then
+									if Config.ChemicalsLicenseEnabled then
+										chemicalsmenucheck()
+									else
+										wasOpen = true
+										OpenChemicalsMenu()
+									end
+								else
+									ESX.ShowNotification(_U('cops_notenough'))
+								end
+							end, Config.Cops.Chemicals.Amount)
+						else
+							if Config.ChemicalsLicenseEnabled then
+								chemicalsmenucheck()
+							else
+								wasOpen = true
+								OpenChemicalsMenu()
+							end
+						end
 					else
-						wasOpen = true
-						OpenChemicalsMenu()
-					end
+						if Config.ChemicalsLicenseEnabled then
+							chemicalsmenucheck()
+						else
+							wasOpen = true
+							OpenChemicalsMenu()
+						end
+					end	
 				end
 			else
 				Citizen.Wait(5500)

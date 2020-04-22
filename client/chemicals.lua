@@ -32,31 +32,16 @@ Citizen.CreateThread(function()
 						if Config.Cops.ChemicalsMenu.Enabled then
 							ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
 								if cb then
-									if Config.ChemicalsLicenseEnabled then
-										chemicalsmenucheck()
-									else
-										wasOpen = true
-										OpenChemicalsMenu()
-									end
+									CheckLicenseConfig()
 								else
 									ESX.ShowNotification(_U('cops_notenough'))
 								end
 							end, Config.Cops.ChemicalsMenu.Amount)
 						else
-							if Config.ChemicalsLicenseEnabled then
-								chemicalsmenucheck()
-							else
-								wasOpen = true
-								OpenChemicalsMenu()
-							end
+							CheckLicenseConfig()
 						end
 					else
-						if Config.ChemicalsLicenseEnabled then
-							chemicalsmenucheck()
-						else
-							wasOpen = true
-							OpenChemicalsMenu()
-						end
+						CheckLicenseConfig()
 					end	
 				end
 			else
@@ -73,16 +58,20 @@ Citizen.CreateThread(function()
 	end
 end)
 
-function chemicalsmenucheck()
-
-	ESX.TriggerServerCallback('esx_illegal:CheckLisense', function(cb)
-		if cb then
-			wasOpen = true
-			OpenChemicalsMenu()
-		else
-			ESX.ShowNotification(_U('need_license'))
-		end
-	end, 'chemicalslisence')
+function CheckLicenseConfig()
+	if Config.ChemicalsLicenseEnabled then
+		ESX.TriggerServerCallback('esx_illegal:CheckLisense', function(cb)
+			if cb then
+				wasOpen = true
+				OpenChemicalsMenu()
+			else
+				ESX.ShowNotification(_U('need_license'))
+			end
+		end, 'chemicalslisence')
+	else
+		wasOpen = true
+		OpenChemicalsMenu()
+	end
 end
 
 function OpenChemicalsMenu()
@@ -138,86 +127,16 @@ Citizen.CreateThread(function()
 					if Config.Cops.Chemicals.Enabled then 
 						ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
 							if cb then
-
-								isPickingUp = true
-								
-								ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
-
-									if canPickUp then
-										TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-				
-										Citizen.Wait(2000)
-										ClearPedTasks(playerPed)
-										Citizen.Wait(1500)
-						
-										ESX.Game.DeleteObject(nearbyObject)
-						
-										table.remove(Chemicals, nearbyID)
-										SpawnedChemicals = SpawnedChemicals - 1
-						
-										TriggerServerEvent('esx_illegal:pickedUpChemicals')
-									else
-										ESX.ShowNotification(_U('chemicals_inventoryfull'))
-									end
-				
-									isPickingUp = false
-				
-								end, 'chemicals')
+								PickUpChemicals(playerPed, coords, nearbyObject, nearbyID)
 							else
 								ESX.ShowNotification(_U('cops_notenough'))
 							end
 						end, Config.Cops.Chemicals.Amount)
 					else
-						isPickingUp = true
-
-						ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
-
-							if canPickUp then
-								TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-		
-								Citizen.Wait(2000)
-								ClearPedTasks(playerPed)
-								Citizen.Wait(1500)
-				
-								ESX.Game.DeleteObject(nearbyObject)
-				
-								table.remove(Chemicals, nearbyID)
-								SpawnedChemicals = SpawnedChemicals - 1
-				
-								TriggerServerEvent('esx_illegal:pickedUpChemicals')
-							else
-								ESX.ShowNotification(_U('chemicals_inventoryfull'))
-							end
-		
-							isPickingUp = false
-		
-						end, 'chemicals')
+						PickUpChemicals(playerPed, coords, nearbyObject, nearbyID)
 					end
 				else
-					isPickingUp = true
-
-					ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
-
-						if canPickUp then
-							TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-	
-							Citizen.Wait(2000)
-							ClearPedTasks(playerPed)
-							Citizen.Wait(1500)
-			
-							ESX.Game.DeleteObject(nearbyObject)
-			
-							table.remove(Chemicals, nearbyID)
-							SpawnedChemicals = SpawnedChemicals - 1
-			
-							TriggerServerEvent('esx_illegal:pickedUpChemicals')
-						else
-							ESX.ShowNotification(_U('chemicals_inventoryfull'))
-						end
-	
-						isPickingUp = false
-	
-					end, 'chemicals')
+					PickUpChemicals(playerPed, coords, nearbyObject, nearbyID)
 				end
 			end
 
@@ -228,6 +147,33 @@ Citizen.CreateThread(function()
 	end
 
 end)
+
+function PickUpChemicals(playerPed, coords, nearbyObject, nearbyID)
+	isPickingUp = true
+
+	ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
+
+		if canPickUp then
+			TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
+
+			Citizen.Wait(2000)
+			ClearPedTasks(playerPed)
+			Citizen.Wait(1500)
+
+			ESX.Game.DeleteObject(nearbyObject)
+
+			table.remove(Chemicals, nearbyID)
+			SpawnedChemicals = SpawnedChemicals - 1
+
+			TriggerServerEvent('esx_illegal:pickedUpChemicals')
+		else
+			ESX.ShowNotification(_U('chemicals_inventoryfull'))
+		end
+
+		isPickingUp = false
+
+	end, 'chemicals')
+end
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then

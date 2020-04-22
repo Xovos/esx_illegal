@@ -29,17 +29,13 @@ Citizen.CreateThread(function()
 
 				if IsControlJustReleased(0, 38) then
 					if Config.RequireCopsOnline then
-						if Config.Cops.ChemicalsMenu.Enabled then
-							ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
-								if cb then
-									CheckLicenseConfig()
-								else
-									ESX.ShowNotification(_U('cops_notenough'))
-								end
-							end, Config.Cops.ChemicalsMenu.Amount)
-						else
-							CheckLicenseConfig()
-						end
+						ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+							if cb then
+								CheckLicenseConfig()
+							else
+								ESX.ShowNotification(_U('cops_notenough'))
+							end
+						end, Config.Cops.ChemicalsMenu)
 					else
 						CheckLicenseConfig()
 					end	
@@ -124,17 +120,13 @@ Citizen.CreateThread(function()
 
 			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
 				if Config.RequireCopsOnline then
-					if Config.Cops.Chemicals.Enabled then 
-						ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
-							if cb then
-								PickUpChemicals(playerPed, coords, nearbyObject, nearbyID)
-							else
-								ESX.ShowNotification(_U('cops_notenough'))
-							end
-						end, Config.Cops.Chemicals.Amount)
-					else
-						PickUpChemicals(playerPed, coords, nearbyObject, nearbyID)
-					end
+					ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+						if cb then
+							PickUpChemicals(playerPed, coords, nearbyObject, nearbyID)
+						else
+							ESX.ShowNotification(_U('cops_notenough'))
+						end
+					end, Config.Cops.Chemicals)
 				else
 					PickUpChemicals(playerPed, coords, nearbyObject, nearbyID)
 				end

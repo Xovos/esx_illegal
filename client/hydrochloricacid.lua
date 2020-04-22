@@ -35,30 +35,64 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
-				isPickingUp = true
+				if Config.RequireCopsOnline then
+					ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+						if cb then
 
-				ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
+							isPickingUp = true
+							
+							ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
 
-					if canPickUp then
-						TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
+								if canPickUp then
+									TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
+			
+									Citizen.Wait(2000)
+									ClearPedTasks(playerPed)
+									Citizen.Wait(1500)
+					
+									ESX.Game.DeleteObject(nearbyObject)
+					
+									table.remove(HydrochloricAcidBarrels, nearbyID)
+									spawnedHydrochloricAcidBarrels = spawnedHydrochloricAcidBarrels - 1
+					
+									TriggerServerEvent('esx_illegal:pickedUpHydrochloricAcid')
+								else
+									ESX.ShowNotification(_U('HydrochloricAcid_inventoryfull'))
+								end
+			
+								isPickingUp = false
+			
+							end, 'hydrochloric_acid')
+						else
+							ESX.ShowNotification(_U('cops_notenough'))
+						end
+					end, Config.Cops.Meth)
+				else
+					isPickingUp = true
 
-						Citizen.Wait(2000)
-						ClearPedTasks(playerPed)
-						Citizen.Wait(1500)
-		
-						ESX.Game.DeleteObject(nearbyObject)
-		
-						table.remove(HydrochloricAcidBarrels, nearbyID)
-						spawnedHydrochloricAcidBarrels = spawnedHydrochloricAcidBarrels - 1
-		
-						TriggerServerEvent('esx_illegal:pickedUpHydrochloricAcid')
-					else
-						ESX.ShowNotification(_U('HydrochloricAcid_inventoryfull'))
-					end
+					ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
 
-					isPickingUp = false
-
-				end, 'hydrochloric_acid')
+						if canPickUp then
+							TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
+	
+							Citizen.Wait(2000)
+							ClearPedTasks(playerPed)
+							Citizen.Wait(1500)
+			
+							ESX.Game.DeleteObject(nearbyObject)
+			
+							table.remove(HydrochloricAcidBarrels, nearbyID)
+							spawnedHydrochloricAcidBarrels = spawnedHydrochloricAcidBarrels - 1
+			
+							TriggerServerEvent('esx_illegal:pickedUpHydrochloricAcid')
+						else
+							ESX.ShowNotification(_U('HydrochloricAcid_inventoryfull'))
+						end
+	
+						isPickingUp = false
+	
+					end, 'hydrochloric_acid')
+				end
 			end
 
 		else

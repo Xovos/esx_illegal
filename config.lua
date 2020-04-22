@@ -9,7 +9,7 @@ Config.GiveBlack = true -- give black money? if disabled it'll give regular cash
 Config.ChemicalsLicenseEnabled = true --Will Enable or Disable the need for a Chemicals License.
 Config.MoneyWashLicenseEnabled = true --Will Enable or Disable the need for a MoneyWash License.
 Config.RestrictLicenseShopAcces = false --Will Restrict the access to the license shop to players with a specific job and grade.
-Config.RequireCopsOnline = false --Will require that cops are online to pickup or process.
+Config.RequireCopsOnline = true --Will require that cops are online to pickup or process.
 
 --The time it takes to process one item
 Config.Delays = {
@@ -56,10 +56,10 @@ Config.AllowedJobs = {
 --Only needed when RequireCopsOnline is set to true
 Config.Cops = {
 	Heroin = 1,
-	Weed = 5,
+	Weed = 1,
 	Coke = 1,
-	Meth = 3,
-	LSD = 0,
+	Meth = 1,
+	LSD = 1,
 }
 
 --Interior Teleport Locations

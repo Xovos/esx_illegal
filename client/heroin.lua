@@ -29,7 +29,17 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isProcessing then
-				ProcessHeroin()
+				if Config.RequireCopsOnline then
+					ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+						if cb then
+							ProcessHeroin()
+						else
+							ESX.ShowNotification(_U('cops_notenough'))
+						end
+					end, Config.Cops.Heroin)
+				else
+					ProcessHeroin()
+				end
 			end
 		else
 			Citizen.Wait(500)
@@ -79,30 +89,63 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
-				isPickingUp = true
+				if Config.RequireCopsOnline then
+					ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+						if cb then
+							isPickingUp = true
 
-				ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
+							ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
 
-					if canPickUp then
-						TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
+								if canPickUp then
+									TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-						Citizen.Wait(2000)
-						ClearPedTasks(playerPed)
-						Citizen.Wait(1500)
-		
-						ESX.Game.DeleteObject(nearbyObject)
-		
-						table.remove(PoppyPlants, nearbyID)
-						spawnedPoppys = spawnedPoppys - 1
-		
-						TriggerServerEvent('esx_illegal:pickedUpPoppy')
-					else
-						ESX.ShowNotification(_U('poppy_inventoryfull'))
-					end
+									Citizen.Wait(2000)
+									ClearPedTasks(playerPed)
+									Citizen.Wait(1500)
 
-					isPickingUp = false
+									ESX.Game.DeleteObject(nearbyObject)
 
-				end, 'poppyresin')
+									table.remove(PoppyPlants, nearbyID)
+									spawnedPoppys = spawnedPoppys - 1
+
+									TriggerServerEvent('esx_illegal:pickedUpPoppy')
+								else
+									ESX.ShowNotification(_U('poppy_inventoryfull'))
+								end
+
+								isPickingUp = false
+
+							end, 'poppyresin')
+						else
+							ESX.ShowNotification(_U('cops_notenough'))
+						end
+					end, Config.Cops.Heroin)
+				else
+					isPickingUp = true
+
+					ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
+
+						if canPickUp then
+							TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
+
+							Citizen.Wait(2000)
+							ClearPedTasks(playerPed)
+							Citizen.Wait(1500)
+
+							ESX.Game.DeleteObject(nearbyObject)
+
+							table.remove(PoppyPlants, nearbyID)
+							spawnedPoppys = spawnedPoppys - 1
+
+							TriggerServerEvent('esx_illegal:pickedUpPoppy')
+						else
+							ESX.ShowNotification(_U('poppy_inventoryfull'))
+						end
+
+						isPickingUp = false
+
+					end, 'poppyresin')
+				end
 			end
 
 		else

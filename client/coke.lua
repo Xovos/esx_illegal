@@ -92,8 +92,10 @@ Citizen.CreateThread(function()
 				if Config.RequireCopsOnline then
 					ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
 						if cb then
+
+							isPickingUp = true
+							
 							ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
-								isPickingUp = true
 
 								if canPickUp then
 									TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
@@ -120,9 +122,10 @@ Citizen.CreateThread(function()
 						end
 					end, Config.Cops.Coke)
 				else
-					ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
-						isPickingUp = true
+					isPickingUp = true
 
+					ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
+						
 						if canPickUp then
 							TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 	

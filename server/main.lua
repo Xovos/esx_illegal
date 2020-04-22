@@ -87,19 +87,3 @@ ESX.RegisterServerCallback('esx_illegal:EnoughCops', function(source, cb, config
 		return
 	end
 end)
-
-ESX.RegisterServerCallback('esx_illegal:CountCops', function(source, cb)
-	local xPlayers = ESX.GetPlayers()
-	local CopsConnected = 0
-
-	for k,Player in pairs(xPlayers) do
-		local xPlayer = ESX.GetPlayerFromId(Player)
-
-		if xPlayer.job.name == 'police' then
-			CopsConnected = CopsConnected + 1
-		end
-	end
-
-	cb(CopsConnected)
-	return
-end)

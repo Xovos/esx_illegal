@@ -35,30 +35,64 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
-				isPickingUp = true
+				if Config.RequireCopsOnline then
+					ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+						if cb then
 
-				ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
+							isPickingUp = true
+							
+							ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
 
-					if canPickUp then
-						TaskStartScenarioInPlace(playerPe3, 'world_human_gardener_plant', 0, false)
+								if canPickUp then
+									TaskStartScenarioInPlace(playerPe3, 'world_human_gardener_plant', 0, false)
+			
+									Citizen.Wait(2000)
+									ClearPedTasks(playerPe3)
+									Citizen.Wait(1500)
+					
+									ESX.Game.DeleteObject(nearbyObject3)
+					
+									table.remove(SodiumHydroxideBarrels, nearbyID3)
+									spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels - 1
+					
+									TriggerServerEvent('esx_illegal:pickedUpSodiumHydroxide')
+								else
+									ESX.ShowNotification(_U('sodium_hydroxide_inventoryfull'))
+								end
+			
+								isPickingUp = false
+			
+							end, 'sodium_hydroxide')
+						else
+							ESX.ShowNotification(_U('cops_notenough'))
+						end
+					end, Config.Cops.Meth)
+				else
+					isPickingUp = true
 
-						Citizen.Wait(2000)
-						ClearPedTasks(playerPe3)
-						Citizen.Wait(1500)
-		
-						ESX.Game.DeleteObject(nearbyObject3)
-		
-						table.remove(SodiumHydroxideBarrels, nearbyID3)
-						spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels - 1
-		
-						TriggerServerEvent('esx_illegal:pickedUpSodiumHydroxide')
-					else
-						ESX.ShowNotification(_U('sodium_hydroxide_inventoryfull'))
-					end
+					ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
 
-					isPickingUp = false
-
-				end, 'sodium_hydroxide')
+						if canPickUp then
+							TaskStartScenarioInPlace(playerPe3, 'world_human_gardener_plant', 0, false)
+	
+							Citizen.Wait(2000)
+							ClearPedTasks(playerPe3)
+							Citizen.Wait(1500)
+			
+							ESX.Game.DeleteObject(nearbyObject3)
+			
+							table.remove(SodiumHydroxideBarrels, nearbyID3)
+							spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels - 1
+			
+							TriggerServerEvent('esx_illegal:pickedUpSodiumHydroxide')
+						else
+							ESX.ShowNotification(_U('sodium_hydroxide_inventoryfull'))
+						end
+	
+						isPickingUp = false
+	
+					end, 'sodium_hydroxide')
+				end
 			end
 
 		else

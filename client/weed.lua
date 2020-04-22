@@ -29,7 +29,17 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isProcessing then
-				ProcessWeed()
+				if Config.RequireCopsOnline then
+					ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+						if cb then
+							ProcessWeed()
+						else
+							ESX.ShowNotification(_U('cops_notenough'))
+						end
+					end, Config.Cops.Weed)
+				else
+					ProcessWeed()
+				end
 			end
 		else
 			Citizen.Wait(500)
@@ -79,30 +89,64 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
-				isPickingUp = true
+				if Config.RequireCopsOnline then
+					ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+						if cb then
 
-				ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
+							isPickingUp = true
+							
+							ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
 
-					if canPickUp then
-						TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
+								if canPickUp then
+									TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
+			
+									Citizen.Wait(2000)
+									ClearPedTasks(playerPed)
+									Citizen.Wait(1500)
+					
+									ESX.Game.DeleteObject(nearbyObject)
+					
+									table.remove(weedPlants, nearbyID)
+									spawnedWeeds = spawnedWeeds - 1
+					
+									TriggerServerEvent('esx_illegal:pickedUpCannabis')
+								else
+									ESX.ShowNotification(_U('weed_inventoryfull'))
+								end
+			
+								isPickingUp = false
+			
+							end, 'cannabis')
+						else
+							ESX.ShowNotification(_U('cops_notenough'))
+						end
+					end, Config.Cops.Weed)
+				else
+					isPickingUp = true
 
-						Citizen.Wait(2000)
-						ClearPedTasks(playerPed)
-						Citizen.Wait(1500)
-		
-						ESX.Game.DeleteObject(nearbyObject)
-		
-						table.remove(weedPlants, nearbyID)
-						spawnedWeeds = spawnedWeeds - 1
-		
-						TriggerServerEvent('esx_illegal:pickedUpCannabis')
-					else
-						ESX.ShowNotification(_U('weed_inventoryfull'))
-					end
+					ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
 
-					isPickingUp = false
-
-				end, 'cannabis')
+						if canPickUp then
+							TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
+	
+							Citizen.Wait(2000)
+							ClearPedTasks(playerPed)
+							Citizen.Wait(1500)
+			
+							ESX.Game.DeleteObject(nearbyObject)
+			
+							table.remove(weedPlants, nearbyID)
+							spawnedWeeds = spawnedWeeds - 1
+			
+							TriggerServerEvent('esx_illegal:pickedUpCannabis')
+						else
+							ESX.ShowNotification(_U('weed_inventoryfull'))
+						end
+	
+						isPickingUp = false
+	
+					end, 'cannabis')
+				end
 			end
 
 		else

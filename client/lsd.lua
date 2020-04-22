@@ -12,7 +12,17 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isProcessing then
-				Processlsd()
+				if Config.RequireCopsOnline then
+					ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+						if cb then
+							Processlsd()
+						else
+							ESX.ShowNotification(_U('cops_notenough'))
+						end
+					end, Config.Cops.LSD)
+				else
+					Processlsd()
+				end
 			end
 		else
 			Citizen.Wait(500)
@@ -54,7 +64,17 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isProcessing then
-				Processthionylchloride()
+				if Config.RequireCopsOnline then
+					ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+						if cb then
+							Processthionylchloride()
+						else
+							ESX.ShowNotification(_U('cops_notenough'))
+						end
+					end, Config.Cops.LSD)
+				else
+					Processthionylchloride()
+				end
 			end
 		else
 			Citizen.Wait(500)

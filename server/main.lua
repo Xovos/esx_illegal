@@ -91,7 +91,9 @@ AddEventHandler('esx_illegal:CountCops', function()
 		end
 	end
 
-	print('[',os.date("%H:%M"),']', 'esx_illegal: Counted all online cops: ', CopsConnected)
+	if Config.EnableCopCheckMessage then
+		print('[',os.date("%H:%M"),']', 'esx_illegal: Counted all online cops: ', CopsConnected)
+	end
 end)
 
 Citizen.CreateThread(function()
@@ -99,4 +101,9 @@ Citizen.CreateThread(function()
 		Citizen.Wait(Config.CopsCheckRefreshTime * 60000)
 		TriggerEvent('esx_illegal:CountCops')
 	end
+end)
+
+Citizen.CreateThread(function()
+		Citizen.Wait(5 * 60000)
+		TriggerEvent('esx_illegal:CountCops')
 end)

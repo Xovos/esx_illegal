@@ -1,4 +1,5 @@
 ESX = nil
+local CopsConnected = 0
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
@@ -67,9 +68,20 @@ ESX.RegisterServerCallback('esx_illegal:CheckLisense', function(source, cb, item
 	end
 end)
 
-ESX.RegisterServerCallback('esx_illegal:EnoughCops', function(source, cb, configvalue)
+ESX.RegisterServerCallback('esx_illegal:EnoughCops', function(source, cb, configvalue)	
+	if CopsConnected < configvalue then
+		cb(false)
+		return
+	else
+		cb(true)
+		return
+	end
+end)
+
+RegisterServerEvent('esx_illegal:CountCops')
+AddEventHandler('esx_illegal:CountCops', function()
 	local xPlayers = ESX.GetPlayers()
-	local CopsConnected = 0
+	CopsConnected = 0
 
 	for k,Player in pairs(xPlayers) do
 		local xPlayer = ESX.GetPlayerFromId(Player)
@@ -79,11 +91,12 @@ ESX.RegisterServerCallback('esx_illegal:EnoughCops', function(source, cb, config
 		end
 	end
 
-	if CopsConnected < configvalue then
-		cb(false)
-		return
-	else
-		cb(true)
-		return
+	print('[',os.date("%H:%M"),']', 'esx_illegal: Counted all online cops: ', CopsConnected)
+end)
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(Config.CopsCheckRefreshTime * 60000)
+		TriggerEvent('esx_illegal:CountCops')
 	end
 end)

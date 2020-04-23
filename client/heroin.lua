@@ -29,12 +29,14 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isProcessing then
+				isProcessing = true
 				if Config.RequireCopsOnline then
 					ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
 						if cb then
 							ProcessHeroin()
 						else
 							ESX.ShowNotification(_U('cops_notenough'))
+							isProcessing = false
 						end
 					end, Config.Cops.Heroin)
 				else
@@ -55,7 +57,6 @@ Citizen.CreateThread(function()
 end)
 
 function ProcessHeroin()
-	isProcessing = true
 
 	ESX.ShowNotification(_U('heroin_processingstarted'))
 	local timeLeft = Config.Delays.HeroinProcessing / 1000

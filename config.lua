@@ -11,6 +11,8 @@ Config.MoneyWashLicenseEnabled = true --Will Enable or Disable the need for a Mo
 Config.RestrictLicenseShopAcces = false --Will Restrict the access to the license shop to players with a specific job and grade.
 Config.RequireCopsOnline = true --Will require that cops are online to pickup or process.
 
+Config.CopsCheckRefreshTime = 30
+
 --The time it takes to process one item
 Config.Delays = {
 	WeedProcessing = 1000 * 10,
@@ -55,7 +57,7 @@ Config.AllowedJobs = {
 --The amount of cops that need to be online to harvest/process these drugs.
 --Only needed when RequireCopsOnline is set to true
 Config.Cops = {
-	Heroin = 0,
+	Heroin = 1,
 	Weed = 1,
 	Coke = 2,
 	Meth = 3,

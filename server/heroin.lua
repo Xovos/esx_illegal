@@ -16,25 +16,25 @@ AddEventHandler('esx_illegal:processPoppyResin', function()
 	if not playersProcessingPoppyResin[source] then
 		local _source = source
 
-		playersProcessingPoppyResin[_source] = ESX.SetTimeout(Config.Delays.HeroinProcessing, function()
-			local xPlayer = ESX.GetPlayerFromId(_source)
-			local xPoppyResin, xHeroin = xPlayer.getInventoryItem('poppyresin'), xPlayer.getInventoryItem('heroin')
 
-			if xPoppyResin.count > 0 then
-				if xPlayer.canSwapItem('poppyresin', 1, 'heroin', 1) then
-					xPlayer.removeInventoryItem('poppyresin', 1)
-					xPlayer.addInventoryItem('heroin', 1)
+		local xPlayer = ESX.GetPlayerFromId(_source)
+		local xPoppyResin, xHeroin = xPlayer.getInventoryItem('poppyresin'), xPlayer.getInventoryItem('heroin')
 
-					xPlayer.showNotification(_U('heroin_processed'))
-				else
-					xPlayer.showNotification(_U('heroin_processingfull'))
-				end
+		if xPoppyResin.count > 0 then
+			if xPlayer.canSwapItem('poppyresin', 1, 'heroin', 1) then
+				xPlayer.removeInventoryItem('poppyresin', 1)
+				xPlayer.addInventoryItem('heroin', 1)
+
+				xPlayer.showNotification(_U('heroin_processed'))
 			else
-				xPlayer.showNotification(_U('heroin_processingenough'))
+				xPlayer.showNotification(_U('heroin_processingfull'))
 			end
+		else
+			xPlayer.showNotification(_U('heroin_processingenough'))
+		end
 
-			playersProcessingPoppyResin[_source] = nil
-		end)
+		playersProcessingPoppyResin[_source] = nil
+
 	else
 		print(('esx_illegal: %s attempted to exploit heroin processing!'):format(GetPlayerIdentifiers(source)[1]))
 	end

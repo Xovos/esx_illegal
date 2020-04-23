@@ -47,15 +47,21 @@ Citizen.CreateThread(function()
 	end
 end)
 
+Citizen.CreateThread(function()
+	Citizen.Wait(0)
+	if isProcessing then
+		DisableControlAction(0,38,true)
+	end
+end)
+
 function ProcessHeroin()
 	isProcessing = true
 
 	ESX.ShowNotification(_U('heroin_processingstarted'))
-	TriggerServerEvent('esx_illegal:processPoppyResin')
 	local timeLeft = Config.Delays.HeroinProcessing / 1000
 	local playerPed = PlayerPedId()
 
-	while timeLeft > 0 do
+	--[[while timeLeft > 0 do
 		Citizen.Wait(1000)
 		timeLeft = timeLeft - 1
 
@@ -64,8 +70,16 @@ function ProcessHeroin()
 			TriggerServerEvent('esx_illegal:cancelProcessing')
 			break
 		end
-	end
+	end--]]
 
+	Citizen.Wait(Config.Delays.HeroinProcessing)
+	if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.HeroinProcessing.coords, false) > 5 then
+		ESX.ShowNotification(_U('heroin_processingtoofar'))
+	else
+		TriggerServerEvent('esx_illegal:processPoppyResin')
+	end
+	
+	Citizen.Wait(2000)
 	isProcessing = false
 end
 
@@ -125,9 +139,11 @@ function PickUpPoppy(playerPed, coords, nearbyObject, nearbyID)
 			ESX.Game.DeleteObject(nearbyObject)
 
 			table.remove(PoppyPlants, nearbyID)
-			spawnedPoppys = spawnedPoppys - 1
+			
 
 			TriggerServerEvent('esx_illegal:pickedUpPoppy')
+			Citizen.Wait(5000)
+			spawnedPoppys = spawnedPoppys - 1
 		else
 			ESX.ShowNotification(_U('poppy_inventoryfull'))
 		end

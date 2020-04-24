@@ -97,13 +97,17 @@ AddEventHandler('esx_illegal:CountCops', function()
 end)
 
 Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(Config.CopsCheckRefreshTime * 60000)
-		TriggerEvent('esx_illegal:CountCops')
+	if Config.RequireCopsOnline then
+		while true do
+			Citizen.Wait(Config.CopsCheckRefreshTime * 60000)
+			TriggerEvent('esx_illegal:CountCops')
+		end
 	end
 end)
 
 Citizen.CreateThread(function()
+	if Config.RequireCopsOnline then
 		Citizen.Wait(5 * 60000)
 		TriggerEvent('esx_illegal:CountCops')
+	end
 end)

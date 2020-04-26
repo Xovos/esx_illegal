@@ -159,9 +159,10 @@ function PickUpChemicals(playerPed, coords, nearbyObject, nearbyID)
 			ESX.Game.DeleteObject(nearbyObject)
 
 			table.remove(Chemicals, nearbyID)
-			SpawnedChemicals = SpawnedChemicals - 1
 
 			TriggerServerEvent('esx_illegal:pickedUpChemicals')
+			Citizen.Wait(5000)
+			SpawnedChemicals = SpawnedChemicals - 1
 		else
 			ESX.ShowNotification(_U('chemicals_inventoryfull'))
 		end

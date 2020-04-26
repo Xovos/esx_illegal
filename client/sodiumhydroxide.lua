@@ -71,9 +71,10 @@ function PickUpSodiumHydroxide(playerPed, coords, nearbyObject, nearbyID)
 			ESX.Game.DeleteObject(nearbyObject)
 
 			table.remove(SodiumHydroxideBarrels, nearbyID)
-			spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels - 1
 
 			TriggerServerEvent('esx_illegal:pickedUpSodiumHydroxide')
+			Citizen.Wait(5000)
+			spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels - 1
 		else
 			ESX.ShowNotification(_U('sodium_hydroxide_inventoryfull'))
 		end

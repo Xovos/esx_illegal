@@ -128,9 +128,10 @@ function PickUpCocaLeaf(playerPed, coords, nearbyObject, nearbyID)
 			ESX.Game.DeleteObject(nearbyObject)
 
 			table.remove(CocaPlants, nearbyID)
-			spawnedCocaLeaf = spawnedCocaLeaf - 1
 
 			TriggerServerEvent('esx_illegal:pickedUpCocaLeaf')
+			Citizen.Wait(5000)
+			spawnedCocaLeaf = spawnedCocaLeaf - 1
 		else
 			ESX.ShowNotification(_U('coke_inventoryfull'))
 		end
@@ -222,10 +223,3 @@ function GetCoordZCoke(x, y)
 
 	return 77
 end
-
-Citizen.CreateThread(function()
-	Citizen.Wait(0)
-	if isProcessing then
-		DisableControlAction(0,38,true)
-	end
-end)

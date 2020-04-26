@@ -71,9 +71,10 @@ function PickUpHydrochloricAcid(playerPed, coords, nearbyObject, nearbyID)
 			ESX.Game.DeleteObject(nearbyObject)
 
 			table.remove(HydrochloricAcidBarrels, nearbyID)
-			spawnedHydrochloricAcidBarrels = spawnedHydrochloricAcidBarrels - 1
 
 			TriggerServerEvent('esx_illegal:pickedUpHydrochloricAcid')
+			Citizen.Wait(5000)
+			spawnedHydrochloricAcidBarrels = spawnedHydrochloricAcidBarrels - 1
 		else
 			ESX.ShowNotification(_U('HydrochloricAcid_inventoryfull'))
 		end

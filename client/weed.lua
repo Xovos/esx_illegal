@@ -129,9 +129,10 @@ function PickUpWeed(playerPed, coords, nearbyObject, nearbyID)
 			ESX.Game.DeleteObject(nearbyObject)
 
 			table.remove(weedPlants, nearbyID)
-			spawnedWeeds = spawnedWeeds - 1
 
 			TriggerServerEvent('esx_illegal:pickedUpCannabis')
+			Citizen.Wait(5000)
+			spawnedWeeds = spawnedWeeds - 1
 		else
 			ESX.ShowNotification(_U('weed_inventoryfull'))
 		end
@@ -223,10 +224,3 @@ function GetCoordZWeed(x, y)
 
 	return 53.85
 end
-
-Citizen.CreateThread(function()
-	Citizen.Wait(0)
-	if isProcessing then
-		DisableControlAction(0,38,true)
-	end
-end)

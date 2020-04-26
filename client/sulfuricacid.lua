@@ -71,9 +71,10 @@ function PickUpSulfuricAcid(playerPed, coords, nearbyObject, nearbyID)
 			ESX.Game.DeleteObject(nearbyObject)
 
 			table.remove(SulfuricAcidBarrels, nearbyID)
-			spawnedSulfuricAcidBarrels = spawnedSulfuricAcidBarrels - 1
 
 			TriggerServerEvent('esx_illegal:pickedUpSulfuricAcid')
+			Citizen.Wait(5000)
+			spawnedSulfuricAcidBarrels = spawnedSulfuricAcidBarrels - 1
 		else
 			ESX.ShowNotification(_U('SulfuricAcid_inventoryfull'))
 		end

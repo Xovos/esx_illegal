@@ -18,17 +18,17 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
-		local playerPe3 = PlayerPedId()
-		local coords = GetEntityCoords(playerPe3)
-		local nearbyObject3, nearbyID3
+		local playerPed = PlayerPedId()
+		local coords = GetEntityCoords(playerPed)
+		local nearbyObject, nearbyID
 
 		for i=1, #SodiumHydroxideBarrels, 1 do
 			if GetDistanceBetweenCoords(coords, GetEntityCoords(SodiumHydroxideBarrels[i]), false) < 1 then
-				nearbyObject3, nearbyID3 = SodiumHydroxideBarrels[i], i
+				nearbyObject, nearbyID = SodiumHydroxideBarrels[i], i
 			end
 		end
 
-		if nearbyObject3 and IsPedOnFoot(playerPe3) then
+		if nearbyObject and IsPedOnFoot(playerPed) then
 
 			if not isPickingUp then
 				ESX.ShowHelpNotification(_U('SodiumHydroxide_pickupprompt'))
@@ -62,15 +62,15 @@ function PickUpSodiumHydroxide(playerPed, coords, nearbyObject, nearbyID)
 	ESX.TriggerServerCallback('esx_illegal:canPickUp', function(canPickUp)
 
 		if canPickUp then
-			TaskStartScenarioInPlace(playerPe3, 'world_human_gardener_plant', 0, false)
+			TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
 			Citizen.Wait(2000)
-			ClearPedTasks(playerPe3)
+			ClearPedTasks(playerPed)
 			Citizen.Wait(1500)
 
-			ESX.Game.DeleteObject(nearbyObject3)
+			ESX.Game.DeleteObject(nearbyObject)
 
-			table.remove(SodiumHydroxideBarrels, nearbyID3)
+			table.remove(SodiumHydroxideBarrels, nearbyID)
 			spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels - 1
 
 			TriggerServerEvent('esx_illegal:pickedUpSodiumHydroxide')

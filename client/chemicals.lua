@@ -28,17 +28,21 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('chemicals_prompt'))
 
 				if IsControlJustReleased(0, 38) then
-					if Config.RequireCopsOnline then
-						ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
-							if cb then
-								CheckLicenseConfig()
-							else
-								ESX.ShowNotification(_U('cops_notenough'))
-							end
-						end, Config.Cops.ChemicalsMenu)
+					if not IsPedInAnyVehicle(playerPed, true) then
+						if Config.RequireCopsOnline then
+							ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+								if cb then
+									CheckLicenseConfig()
+								else
+									ESX.ShowNotification(_U('cops_notenough'))
+								end
+							end, Config.Cops.ChemicalsMenu)
+						else
+							CheckLicenseConfig()
+						end	
 					else
-						CheckLicenseConfig()
-					end	
+						ESX.ShowNotification(_U('need_on_foot'))
+					end
 				end
 			else
 				Citizen.Wait(5500)

@@ -122,4 +122,7 @@ Locales ['en'] = {
   -- Cops
   ['cops_notenough'] = 'You cannot participate illegal activities unless there\'s enough cops online.',
 
+  -- Vehicle
+  ['need_on_foot'] = 'You cannot do this while in a vehicle.',
+
 }

@@ -9,7 +9,7 @@ Config.GiveBlack = true -- give black money? if disabled it'll give regular cash
 Config.ChemicalsLicenseEnabled = true --Will Enable or Disable the need for a Chemicals License.
 Config.MoneyWashLicenseEnabled = true --Will Enable or Disable the need for a MoneyWash License.
 Config.RestrictLicenseShopAcces = false --Will Restrict the access to the license shop to players with a specific job and grade.
-Config.RequireCopsOnline = true --Will require that cops are online to pickup or process.
+Config.RequireCopsOnline = false --Will require that cops are online to pickup or process.
 Config.EnableCopCheckMessage = true --Will enable a message in the console when the server refreshes the current cop count.
 
 --The time the server will wait until checking the current cop count again (in Minutes).

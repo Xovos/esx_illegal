@@ -12,26 +12,30 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('licenseshop_prompt'))
 
 				if IsControlJustReleased(0, 38) then
-					if Config.RequireCopsOnline then
-						ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
-							if cb then
-								if Config.RestrictLicenseShopAcces == true then
-									CheckJob()
+					if not IsPedInAnyVehicle(playerPed, true) then
+						if Config.RequireCopsOnline then
+							ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+								if cb then
+									if Config.RestrictLicenseShopAcces == true then
+										CheckJob()
+									else
+										wasOpen = true
+										OpenlicenseShop()
+									end
 								else
-									wasOpen = true
-									OpenlicenseShop()
+									ESX.ShowNotification(_U('cops_notenough'))
 								end
-							else
-								ESX.ShowNotification(_U('cops_notenough'))
-							end
-						end, Config.Cops.LicenseShop)
-					else
-						if Config.RestrictLicenseShopAcces == true then
-							CheckJob()
+							end, Config.Cops.LicenseShop)
 						else
-							wasOpen = true
-							OpenlicenseShop()
+							if Config.RestrictLicenseShopAcces == true then
+								CheckJob()
+							else
+								wasOpen = true
+								OpenlicenseShop()
+							end
 						end
+					else
+						ESX.ShowNotification(_U('need_on_foot'))
 					end
 				end
 			else

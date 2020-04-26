@@ -29,16 +29,20 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not isProcessing then
-				if Config.RequireCopsOnline then
-					ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
-						if cb then
-							ProcessHeroin()
-						else
-							ESX.ShowNotification(_U('cops_notenough'))
-						end
-					end, Config.Cops.Heroin)
+				if not IsPedInAnyVehicle(playerPed, true) then
+					if Config.RequireCopsOnline then
+						ESX.TriggerServerCallback('esx_illegal:EnoughCops', function(cb)
+							if cb then
+								ProcessHeroin()
+							else
+								ESX.ShowNotification(_U('cops_notenough'))
+							end
+						end, Config.Cops.Heroin)
+					else
+						ProcessHeroin()
+					end
 				else
-					ProcessHeroin()
+					ESX.ShowNotification(_U('need_on_foot'))
 				end
 			end
 		else

@@ -222,3 +222,10 @@ function GetCoordZCoke(x, y)
 
 	return 77
 end
+
+Citizen.CreateThread(function()
+	Citizen.Wait(0)
+	if isProcessing then
+		DisableControlAction(0,38,true)
+	end
+end)

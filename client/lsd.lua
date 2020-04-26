@@ -111,3 +111,10 @@ function Processthionylchloride()
 
 	isProcessing = false
 end
+
+Citizen.CreateThread(function()
+	Citizen.Wait(0)
+	if isProcessing then
+		DisableControlAction(0,38,true)
+	end
+end)

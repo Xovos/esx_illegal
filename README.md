@@ -1,4 +1,4 @@
-# esx_illegal
+# esx_illegal - ESX V1.1.0
 
 I changed ESX_Drugs and added a lot of features like more drugs and licenses for the money wash and the money wash itself.      
 This branch is for people who are running an older version of ESX(Pre Limit) If this one does not work please try the [master](https://github.com/Xovos/esx_illegal/tree/master) branch.
